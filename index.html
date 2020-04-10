@@ -79,7 +79,7 @@
 			
 			var template = document.getElementById("tableTemplate").innerHTML;
 			var compile = Handlebars.compile(template);
-			compiledHtml = compiledTemplateText({rows:major});
+			compiledHtml = compile({rows:major});
 			document.getElementById("course").innerHTML= compiledHtml;
 			
 			}
