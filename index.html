@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<title>CIT 140 Program 5</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
+
+	<!--BootStrap-->
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	
+	
+	<script>
+		window.onload = function()
+		{
+			document.getElementById("btn1").onclick = major('CIT');
+			document.getElementById("btn2").onclick - major('BUS');
+		}
+	
+	</script>
+	
+	
+	
+
+	
+<head>	
+
+<body class="container">
+
+<h2>CIT 140 Program 5 - Corey Scott</h2>
+
+<h3> Please select a major</h3>
+<input type="button" id="btn1" value="CIT Major"> &nbsp;
+<input type="button" id="btn2" value="Business Major">
+
+
+<div id="course"></div>
+
+</body>
+<script type="text/x-handlebars-template" id="tableTemplate">
+	<table class="table table-striped">
+	<tr><th>Name</th><th>Major</th><th>Midterm</th><th>Final</th></<tr>
+	{{#each rows}}
+		<tr><td>{{Name}}</td><td>{{Major}}</td><td>{{Midterm}}</td><td>{{Final}}</td></tr>
+		{{/each}}
+	</table>	
+</script>
+
+
+<!--ajax call to JSON file -->
+
+
+<script>
+		function major(selectedMajor)
+		{
+		
+		var request = new XMLHttpRequest();
+		var link = "cit5Students.jon";
+		request.open("GET", link);
+		
+		request.onreadystatechange = function()
+		{
+			 var data = JSON.parse(request.responseText);
+			
+			 var major = data.filter(majorChoice);
+			 
+			 function majorChoice(choice)
+			 {
+				return choice.major == majorChoice;
+			 }
+		
+			if (request.readystate == 200)
+			{
+			
+			var template = document.getElementById("tableTemplate").innerHTML;
+			var compile = Handlebars.compile(template);
+			compiledHtml = compiledTemplateText({rows:major});
+			document.getElementById("course").innerHTML= compiledHtml;
+			
+			}
+		
+			else
+			{
+				document.getElementById("course").innerHTML = "there was an error";
+			}
+		
+		
+		}
+		
+		
+		request.send(null);
+		
+		
+	}
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+</html>
