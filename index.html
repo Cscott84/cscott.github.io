@@ -63,7 +63,7 @@
 		var link = "cit5Students.jon";
 		request.open("GET", link);
 		
-		request.onreadystatechange = function()
+		request.onload = function()
 		{
 			 var data = JSON.parse(request.responseText);
 			
@@ -74,7 +74,7 @@
 				return choice.major == majorChoice;
 			 }
 		
-			if (request.readystate == 200)
+			if (request.status == 200)
 			{
 			
 			var template = document.getElementById("tableTemplate").innerHTML;
