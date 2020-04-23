@@ -17,7 +17,7 @@
                 <a class="navbar-brand" href="#">Program 6</a>
             </div>
             <div>
-                <ul class="navbar navbar-nav">
+                <ul class="nav navbar-nav">
                     <li class="active"><a href="index.html"> Home</a></li>
                     <li><a href="gpa.html"> All GPA</a></li>
                 </ul>
@@ -32,12 +32,12 @@
             <table class="table table-stiped">
                 <tr><th>SID</th><th>Last Name</th><th>First Name</th><th>Credit hours</th><th>GPA points</th><th>Major</th></tr>
                 <tr ng-repeat="student in students | filter:search">
-                    <td>student.id</td>
-                    <td>student.lastname</td>
-                    <td>student.firstname</td>
-                    <td>student.credit_hrs</td>
-                    <td>student.gpa_points</td>
-                    <td>student.major</td>
+                    <td>{{student.id}}</td>
+                    <td>{{student.lastname}}</td>
+                    <td>{{student.firstname}}</td>
+                    <td>{{student.credit_hrs}}</td>
+                    <td>{{student.gpa_points}}</td>
+                    <td>{{student.major}}</td>
                 </tr>
             </table>
 
