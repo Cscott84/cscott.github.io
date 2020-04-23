@@ -1,107 +1,72 @@
 <!DOCTYPE html>
 
-<html lang="en">
-
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>CIT 140 Program 5</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
+    <meta charset="utf-8" />
+    <title>CIT 140 Program 6 - Corey Scott</title>
 
-	<!--BootStrap-->
-	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	
-	
-	
-	
-	
-	
-
-	
-<head>	
-
-<body class="container">
-
-<h2>CIT 140 Program 5 - Corey Scott</h2>
-
-<h3> Please select a major</h3>
-<input type="button" id="btn1" value="CIT Major" onclick=major("CIT");> &nbsp;
-<input type="button" id="btn2" value="Business Major" onclick=major("BUS");>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script>
+</head>
+<body ng-app="prog6app">
+    <div class="container-fluid">
+        <nav class="navbar navbar-inverse">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Program 6</a>
+            </div>
+            <div>
+                <ul class="navbar navbar-nav">
+                    <li class="active"><a href="index.html"> Home</a></li>
+                    <li><a href="gpa.html"> All GPA</a></li>
+                </ul>
+            </div>
+        </nav>
 
 
-<div id="course"></div>
+        <div ng-controller="students">
+            <h2>Advisees</h2>
+            <input type="text" ng-model="search" />
+
+            <table class="table table-stiped">
+                <tr><th>SID</th><th>Last Name</th><th>First Name</th><th>Credit hours</th><th>GPA points</th><th>Major</th></tr>
+                <tr ng-repeat="student in students | filter:search">
+                    <td>student.id</td>
+                    <td>student.lastname</td>
+                    <td>student.firstname</td>
+                    <td>student.credit_hrs</td>
+                    <td>student.gpa_points</td>
+                    <td>student.major</td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        var app = angular.module('prog6app', []);
+
+        app.controller(function ($scopt, $http) {
+            var url = 'students.json';
+
+            $http.get(url).then(function (respond) {
+                $scope.students = respond.data
+
+
+            });
+
+
+
+
+
+
+        });
+            
+    </script>
+
 
 </body>
-<script type="text/x-handlebars-template" id="tableTemplate">
-	<table class="table table-striped">
-	<tr><th>Name</th><th>Major</th><th>Midterm</th><th>Final</th></<tr>
-	{{#each rows}}
-		<tr><td>{{name}}</td><td>{{major}}</td><td>{{midterm}}</td><td>{{final}}</td></tr>
-		{{/each}}
-	</table>	
-</script>
-
-
-<!--ajax call to JSON file -->
-
-
-<script>
-		function major(selectedMajor)
-		{
-		
-		var request = new XMLHttpRequest();
-		var link = 'cit5students.json';
-		request.open("GET", link);
-		
-		request.onload = function()
-		{
-			 var data = JSON.parse(request.responseText);
-			
-			 var major = data.filter(majorChoice);
-			 
-			 function majorChoice(choice)
-			 {
-				return choice.major == selectedMajor;
-			 }
-		
-			if (request.status == 200)
-			{
-			
-			var template = document.getElementById("tableTemplate").innerHTML;
-			var compile = Handlebars.compile(template);
-			compiledHtml = compile({rows:major});
-			document.getElementById("course").innerHTML= compiledHtml;
-			
-			}
-		
-			else
-			{
-				document.getElementById("course").innerHTML = "there was an error";
-			}
-		
-		
-		}
-		
-		
-		request.send(null);
-		
-		
-	}
-
-
-
-
-
-
-
-
-
-</script>
-
-
-
-
 </html>
